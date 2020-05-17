@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct Card {
+struct Card : Hashable{
     var isMatch = false
     var isSelect = false
     var shapeIdentity : Int
@@ -22,5 +22,12 @@ struct Card {
         self.numberOfShapes = numberOfShapes
         
     }
+    func Hash(into hasher: inout Hasher){
+        hasher.combine(shapeIdentity)
+        hasher.combine(colorIdentity)
+        hasher.combine(fillerIdentity)
+        hasher.combine(numberOfShapes)
+    }
+    
 }
 

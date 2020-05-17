@@ -31,11 +31,7 @@ class SetGame
         for index in 0..<numberOfCardsAtFirst{
             cardsOnTheTable.append(deckOfCards.remove(at: index))
         }
-//        for card in cardsOnTheTable{
-//            print("shape: \(card.shapeIdentity), color : \(card.colorIdentity), fill : \(card.fillerIdentity), number of shapes : \(card.numberOfShapes)")
-//        }
     }
-    
     func selected(at index : Int){
         if !cardsOnTheTable[index].isMatch{//out of game need to fix later
             cardsOnTheTable[index].isSelect = !cardsOnTheTable[index].isSelect
@@ -46,6 +42,7 @@ class SetGame
             }
         }
     }
+    
     
     private func checkMatch(on  selctedCards : [Card]){
         var colorsIdentity = [Int]()
@@ -67,25 +64,27 @@ class SetGame
                 }
             }
             cardsOnTheTable = cardsOnTheTable.filter{$0.isMatch != true}
+            //TODO: can replace inner "for" to cardsOnTheTable = cardsOnTheTable.filter{$0.isSelect != true}
         }
-        
+        //It seems unnecessary to me
         for index in 0..<cardsOnTheTable.count{
             cardsOnTheTable[index].isSelect = false
         }
-
-        
+        //
     }
     private func match(on selectedSequence : [Int]) -> Bool{
         let numberOfUniqe = selectedSequence.unique.count
         return (numberOfUniqe == 1 || numberOfUniqe == identityOptions) ? true : false
     }
     
-    func needMorCards(){
+    //need to update tableCardsToIndex for new cards
+    func needMoreCards(){
         if !deckOfCards.isEmpty{
             if deckOfCards.count >= requestForNewCards {
                 cardsOnTheTable.append(contentsOf: deckOfCards[0..<requestForNewCards])
                 deckOfCards.removeSubrange(0..<requestForNewCards)
             } else {
+                //not realy need it becouse 81 % 3 = 0
                 cardsOnTheTable.append(contentsOf: deckOfCards[0..<deckOfCards.count])
                 deckOfCards.removeSubrange(0..<deckOfCards.count)
             }
