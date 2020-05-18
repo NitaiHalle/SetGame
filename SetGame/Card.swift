@@ -8,7 +8,7 @@
 
 import Foundation
 struct Card : Hashable{
-    var isMatch = false
+    //var isMatch = false
     var isSelect = false
     var shapeIdentity : Int
     var colorIdentity : Int

@@ -42,9 +42,13 @@ class ViewController: UIViewController {
     
     
     @IBAction func threeMoreCards() {
-        game.needMoreCards()
-        cardsViewFromModel()
+        //check if max cards is open
+        if game.cardsOnTheTable.count < cardsButton.count{
+            game.needMoreCards()
+            cardsViewFromModel()
+        }
     }
+    
     private var cardToButtonIndex = [Card : Int]()
     private var ButtonIndexToCard = [Int : Card]()
 //    private func ButtonIndexToCard(at index : Int)-> Card {
@@ -64,14 +68,7 @@ class ViewController: UIViewController {
                 button.layer.borderWidth = 6
                 button.layer.cornerRadius = 8.0
                 button.layer.borderColor = card.isSelect ? #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1):#colorLiteral(red: 0.9861351848, green: 1, blue: 0, alpha: 0)
-                button.backgroundColor = card.isMatch ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-//                if card.isMatch{
-//                    button.setTitle("", for: UIControl.State.normal)
-//                    button.setAttributedTitle(NSAttributedString(string: "") , for: UIControl.State.normal)
-//                    //save button idx for next 3 cards..
-//                    //freeButton.append(index)//
-//                    indexWithCards.remove(at: index)//
-//                }
+                button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
             
             } else {
                 //button with no card
@@ -87,58 +84,13 @@ class ViewController: UIViewController {
     private func represent(for card : Card) -> NSAttributedString{
         //let attributes : [NSAttributedString.Key : Any] = [.foregroundColor : colors[card.colorIdentity]]
         let color = colorsAndFillers[card.colorIdentity]
-        let attributes : [NSAttributedString.Key : Any] = [
-                                                           .strokeColor : color[0],
+        let attributes : [NSAttributedString.Key : Any] = [.strokeColor : color[0],
                                                            .strokeWidth : -4,
-        .foregroundColor : color[card.fillerIdentity]]
+                                                           .foregroundColor : color[card.fillerIdentity]]
         var str = ""
         for _ in 0...card.numberOfShapes{
              str += shapes[card.shapeIdentity]
         }
         return NSAttributedString(string : str, attributes: attributes)
     }
-    
-    
-//
-//    private func cardsViewFromModel1(){
-//        let cards = game.cardsOnTheTable
-//        //var indexWithoutCards = Set(0..<cardsButton.count)//
-//        for index in 0..<cards.count{
-//            let card = cards[index]
-//            let buttonIndex = cardToIndex(for: card)
-//            print(buttonIndex)
-//            freeButton.remove(buttonIndex)
-//            let button = cardsButton[buttonIndex]
-//          //  if indexWithCards.contains(index){ //index < cards.count {
-//                //let card = cards[index]
-//            button.setAttributedTitle(represent(for: card) , for: UIControl.State.normal)
-//            button.layer.borderWidth = 6
-//            button.layer.cornerRadius = 8.0
-//            button.layer.borderColor = card.isSelect ? #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1):#colorLiteral(red: 0.9861351848, green: 1, blue: 0, alpha: 0)
-//            button.backgroundColor = card.isMatch ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-//            if card.isMatch{
-//                button.setTitle("az", for: UIControl.State.normal)
-//                button.setAttributedTitle(NSAttributedString(string: "") , for: UIControl.State.normal)
-//                    //save button idx for next 3 cards..
-//                freeButton.insert(buttonIndex)//.append(buttonIndex)//
-//                    //
-//              //  }
-//            } else {
-//                //button with no card
-//                button.setTitle("", for: UIControl.State.normal)
-//                button.setAttributedTitle(NSAttributedString(string: "") , for: UIControl.State.normal)
-//              button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-//                button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-//            }
-//        }
-//    }
-//
-//    lazy var freeButton = Set(0..<cardsButton.count)
-//    private var cardToIndex = [Card : Int]()
-//    private func cardToIndex(for card : Card)-> Int {
-//        if cardToIndex[card] == nil{
-//             cardToIndex[card] = freeButton.removeFirst()
-//        }
-//        return cardToIndex[card]!
-//    }
 }

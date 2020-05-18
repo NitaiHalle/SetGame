@@ -33,14 +33,14 @@ class SetGame
         }
     }
     func selected(at index : Int){
-        if !cardsOnTheTable[index].isMatch{//out of game need to fix later
+        //if !cardsOnTheTable[index].isMatch{//out of game need to fix later
             cardsOnTheTable[index].isSelect = !cardsOnTheTable[index].isSelect
             let selectedCards = cardsOnTheTable.filter({$0.isSelect})
             if selectedCards.count == 3{
                 print(" 3 select")
                 checkMatch(on : selectedCards)
             }
-        }
+        
     }
     
     
@@ -57,20 +57,14 @@ class SetGame
             fillersIdentity.append(selctedCards[index].fillerIdentity)
         }
         
-        if match(on: colorsIdentity),match(on: shapesIdentity),match(on: numbersOfShapes){//},match(on: fillersIdentity){
-            for index in 0..<cardsOnTheTable.count{
-                if cardsOnTheTable[index].isSelect{
-                    cardsOnTheTable[index].isMatch = true
-                }
-            }
-            cardsOnTheTable = cardsOnTheTable.filter{$0.isMatch != true}
-            //TODO: can replace inner "for" to cardsOnTheTable = cardsOnTheTable.filter{$0.isSelect != true}
+        if match(on: colorsIdentity),match(on: shapesIdentity),match(on: numbersOfShapes),match(on: fillersIdentity){
+
+            cardsOnTheTable = cardsOnTheTable.filter{$0.isSelect != true}
         }
         //It seems unnecessary to me
         for index in 0..<cardsOnTheTable.count{
             cardsOnTheTable[index].isSelect = false
         }
-        //
     }
     private func match(on selectedSequence : [Int]) -> Bool{
         let numberOfUniqe = selectedSequence.unique.count
@@ -89,10 +83,9 @@ class SetGame
                 deckOfCards.removeSubrange(0..<deckOfCards.count)
             }
         }
-        
     }
-    
 }
+
 extension Array where Element : Hashable{
     var unique: [Element] {return Array(Set(self))}
 }
