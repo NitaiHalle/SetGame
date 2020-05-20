@@ -326,19 +326,44 @@
                                     <action selector="threeMoreCards" destination="BYZ-38-t0r" eventType="touchUpInside" id="mXy-tc-vbD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The number of cards in the stack: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hI-gs-V2p">
+                                <rect key="frame" x="51" y="601" width="320" height="66"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ej9-BJ-bND">
+                                <rect key="frame" x="100" y="705" width="214" height="87"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <state key="normal" title="New Game"/>
+                                <connections>
+                                    <action selector="newGameButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zii-vd-gb5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="led-5b-zbY" secondAttribute="trailing" constant="16" id="9Wv-Of-UEb"/>
+                            <constraint firstItem="Ej9-BJ-bND" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="N8d-fA-PXH"/>
+                            <constraint firstItem="9hI-gs-V2p" firstAttribute="leading" secondItem="Eah-LR-rm4" secondAttribute="leading" id="PyF-dg-sUS"/>
+                            <constraint firstItem="Ej9-BJ-bND" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="beg-0v-wkw"/>
+                            <constraint firstItem="9hI-gs-V2p" firstAttribute="top" secondItem="Eah-LR-rm4" secondAttribute="bottom" constant="39" id="fiM-Ey-bZ5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eah-LR-rm4" secondAttribute="trailing" constant="50" id="gYY-9S-Qyf"/>
+                            <constraint firstItem="Ej9-BJ-bND" firstAttribute="top" secondItem="9hI-gs-V2p" secondAttribute="bottom" constant="38" id="idh-If-N5v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Eah-LR-rm4" secondAttribute="bottom" constant="300" id="jie-gy-iQZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9hI-gs-V2p" secondAttribute="trailing" constant="43" id="kgz-vS-GDp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="led-5b-zbY" secondAttribute="top" constant="9" id="nID-cH-iYT"/>
                             <constraint firstItem="Eah-LR-rm4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="51" id="ot8-mV-1bc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ej9-BJ-bND" secondAttribute="bottom" constant="70" id="p1I-nl-rIj"/>
                             <constraint firstItem="led-5b-zbY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="tfW-fi-RGO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9hI-gs-V2p" secondAttribute="bottom" constant="195" id="zLu-FE-WFg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="numberOfCardsInStack" destination="9hI-gs-V2p" id="Pqb-L3-PcR"/>
                         <outletCollection property="cardsButton" destination="aoU-dD-JzE" collectionClass="NSMutableArray" id="Nd4-NB-Smz"/>
                         <outletCollection property="cardsButton" destination="ODT-P4-keZ" collectionClass="NSMutableArray" id="xJa-zQ-51S"/>
                         <outletCollection property="cardsButton" destination="nJz-Jn-CCI" collectionClass="NSMutableArray" id="Q3T-dv-QnJ"/>

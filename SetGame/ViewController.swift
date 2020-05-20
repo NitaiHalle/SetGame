@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     var game = SetGame()
     var shapes = ["▲","●","■"] //TODO: change to dict
-    let colors = [#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)] //TODO: change to dict
+    //let colors = [#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)] //TODO: change to dict
     let colorsAndFillers = [[#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1),#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 0.3513484589),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)],[#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1),#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 0.3515625),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)],[#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1),#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 0.3520976027),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)]] //need to change it to more genric
     
     
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
 
     @IBOutlet var cardsButton: [UIButton]!{
         didSet{
-            cardsViewFromModel()
+            //ViewFromModel()
         }
     }
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
             game.selected(at: cardNumber)
         }
         
-        cardsViewFromModel()
+        ViewFromModel()
         
     }
     
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         //check if max cards is open
         if game.cardsOnTheTable.count < cardsButton.count{
             game.needMoreCards()
-            cardsViewFromModel()
+            ViewFromModel()
         }
     }
     
@@ -58,6 +58,16 @@ class ViewController: UIViewController {
 //            return cardToButtonIndex[card]!
 //        }
     
+    @IBAction func newGameButton(_ sender: Any) {
+        game.reset()
+        ViewFromModel()
+    }
+    
+    @IBOutlet weak var numberOfCardsInStack: UILabel!
+    private func ViewFromModel(){
+        cardsViewFromModel()
+        numberOfCardsInStack.text = "The number of cards in the stack: \(game.deckOfCards.count)"
+    }
     private func cardsViewFromModel(){ //the source
         let cards = game.cardsOnTheTable
         for index in 0..<cardsButton.count{

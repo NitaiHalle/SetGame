@@ -16,22 +16,29 @@ class SetGame
     private let numberOfCardsAtFirst = 12
     
     init() {
-        for shape in 0..<identityOptions{
-            for color in 0..<identityOptions{
-                for fill in 0..<identityOptions{
-                    for numberOfShapes in 0..<identityOptions{
-                        let card = Card(shape: shape, color: color, filler: fill, numberOfShapes: numberOfShapes)
-                        deckOfCards.append(card)
-                    }
-                }
-            }
-        }
-      
-        deckOfCards.shuffle()
-        for index in 0..<numberOfCardsAtFirst{
-            cardsOnTheTable.append(deckOfCards.remove(at: index))
-        }
+        reset()
     }
+    
+    func reset(){
+        deckOfCards.removeAll()
+        cardsOnTheTable.removeAll()
+        for shape in 0..<identityOptions{
+              for color in 0..<identityOptions{
+                  for fill in 0..<identityOptions{
+                      for numberOfShapes in 0..<identityOptions{
+                          let card = Card(shape: shape, color: color, filler: fill, numberOfShapes: numberOfShapes)
+                          deckOfCards.append(card)
+                      }
+                  }
+              }
+          }
+        
+          deckOfCards.shuffle()
+          for index in 0..<numberOfCardsAtFirst{
+              cardsOnTheTable.append(deckOfCards.remove(at: index))
+          }
+    }
+    
     func selected(at index : Int){
         //if !cardsOnTheTable[index].isMatch{//out of game need to fix later
             cardsOnTheTable[index].isSelect = !cardsOnTheTable[index].isSelect
@@ -40,7 +47,7 @@ class SetGame
                 print(" 3 select")
                 checkMatch(on : selectedCards)
             }
-        
+         
     }
     
     
