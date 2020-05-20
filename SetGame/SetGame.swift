@@ -40,17 +40,13 @@ class SetGame
     }
     
     func selected(at index : Int){
-        //if !cardsOnTheTable[index].isMatch{//out of game need to fix later
-            cardsOnTheTable[index].isSelect = !cardsOnTheTable[index].isSelect
-            let selectedCards = cardsOnTheTable.filter({$0.isSelect})
-            if selectedCards.count == 3{
-                print(" 3 select")
-                checkMatch(on : selectedCards)
-            }
-         
+        cardsOnTheTable[index].isSelect = !cardsOnTheTable[index].isSelect
+        let selectedCards = cardsOnTheTable.filter({$0.isSelect})
+        if selectedCards.count == 3{
+            checkMatch(on : selectedCards)
+        }
     }
-    
-    
+
     private func checkMatch(on  selctedCards : [Card]){
         var colorsIdentity = [Int]()
         var shapesIdentity = [Int]()
@@ -65,7 +61,6 @@ class SetGame
         }
         
         if match(on: colorsIdentity),match(on: shapesIdentity),match(on: numbersOfShapes),match(on: fillersIdentity){
-
             cardsOnTheTable = cardsOnTheTable.filter{$0.isSelect != true}
         }
         //It seems unnecessary to me
@@ -92,7 +87,6 @@ class SetGame
         }
     }
 }
-
 extension Array where Element : Hashable{
     var unique: [Element] {return Array(Set(self))}
 }

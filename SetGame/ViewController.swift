@@ -10,23 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
     var game = SetGame()
-    var shapes = ["▲","●","■"] //TODO: change to dict
-    //let colors = [#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)] //TODO: change to dict
-    let colorsAndFillers = [[#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1),#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 0.3513484589),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)],[#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1),#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 0.3515625),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)],[#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1),#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 0.3520976027),#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)]] //need to change it to more genric
+    var shapes = ["▲","●","■"]
+    let colors = [#colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1), #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)]
+    let fillers : [CGFloat] = [0,0.35,1] // for alpha component
     
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Do any additional setup after loading the view.
-//
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ViewFromModel()
 
-    @IBOutlet var cardsButton: [UIButton]!{
-        didSet{
-            //ViewFromModel()
-        }
+        // Do any additional setup after loading the view.
+
     }
+
+    @IBOutlet var cardsButton: [UIButton]!
     
     @IBAction func selectedButton(_ sender: UIButton) {
         
@@ -63,12 +59,18 @@ class ViewController: UIViewController {
         ViewFromModel()
     }
     
+    @IBOutlet weak var threeMoreCardsButton: UIButton!
     @IBOutlet weak var numberOfCardsInStack: UILabel!
     private func ViewFromModel(){
         cardsViewFromModel()
         numberOfCardsInStack.text = "The number of cards in the stack: \(game.deckOfCards.count)"
+        if game.deckOfCards.count >= 0, game.cardsOnTheTable.count < cardsButton.count{
+            threeMoreCardsButton.isEnabled = true
+        } else {
+            threeMoreCardsButton.isEnabled = false
+        }
     }
-    private func cardsViewFromModel(){ //the source
+    private func cardsViewFromModel(){ 
         let cards = game.cardsOnTheTable
         for index in 0..<cardsButton.count{
             let button = cardsButton[index] //TODO: cardTOButtonIndex and ButtonIndexToCard dict
@@ -92,11 +94,10 @@ class ViewController: UIViewController {
     }
     
     private func represent(for card : Card) -> NSAttributedString{
-        //let attributes : [NSAttributedString.Key : Any] = [.foregroundColor : colors[card.colorIdentity]]
-        let color = colorsAndFillers[card.colorIdentity]
-        let attributes : [NSAttributedString.Key : Any] = [.strokeColor : color[0],
+        let attributes : [NSAttributedString.Key : Any] = [.strokeColor : colors[card.colorIdentity],
                                                            .strokeWidth : -4,
-                                                           .foregroundColor : color[card.fillerIdentity]]
+                                                           .foregroundColor : colors[card.colorIdentity].withAlphaComponent(fillers[card.fillerIdentity])]
+        
         var str = ""
         for _ in 0...card.numberOfShapes{
              str += shapes[card.shapeIdentity]

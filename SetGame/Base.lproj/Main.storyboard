@@ -364,6 +364,7 @@
                     </view>
                     <connections>
                         <outlet property="numberOfCardsInStack" destination="9hI-gs-V2p" id="Pqb-L3-PcR"/>
+                        <outlet property="threeMoreCardsButton" destination="Eah-LR-rm4" id="jyx-I5-3px"/>
                         <outletCollection property="cardsButton" destination="aoU-dD-JzE" collectionClass="NSMutableArray" id="Nd4-NB-Smz"/>
                         <outletCollection property="cardsButton" destination="ODT-P4-keZ" collectionClass="NSMutableArray" id="xJa-zQ-51S"/>
                         <outletCollection property="cardsButton" destination="nJz-Jn-CCI" collectionClass="NSMutableArray" id="Q3T-dv-QnJ"/>
