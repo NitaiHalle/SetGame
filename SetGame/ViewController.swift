@@ -17,50 +17,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewFromModel()
-
         // Do any additional setup after loading the view.
-
     }
 
     @IBOutlet var cardsButton: [UIButton]!
     
     @IBAction func selectedButton(_ sender: UIButton) {
-        
         let cardNumber = cardsButton.firstIndex(of: sender)!
-        
         if cardNumber < game.cardsOnTheTable.count{
             game.selected(at: cardNumber)
         }
-        
         ViewFromModel()
-        
     }
-    
-    
     @IBAction func threeMoreCards() {
-        //check if max cards is open
-        if game.cardsOnTheTable.count < cardsButton.count{
-            game.needMoreCards()
-            ViewFromModel()
-        }
+        assert(game.cardsOnTheTable.count < cardsButton.count,"no have room for more cards")
+        game.needMoreCards()
+        ViewFromModel()
     }
-    
-    private var cardToButtonIndex = [Card : Int]()
-    private var ButtonIndexToCard = [Int : Card]()
-//    private func ButtonIndexToCard(at index : Int)-> Card {
-//            if cardToButtonIndex[card] == nil{
-//                 cardToButtonIndex[card] = freeButton.removeFirst()
-//            }
-//            return cardToButtonIndex[card]!
-//        }
-    
     @IBAction func newGameButton(_ sender: Any) {
         game.reset()
         ViewFromModel()
     }
     
     @IBOutlet weak var threeMoreCardsButton: UIButton!
+    
     @IBOutlet weak var numberOfCardsInStack: UILabel!
+    
     private func ViewFromModel(){
         cardsViewFromModel()
         numberOfCardsInStack.text = "The number of cards in the stack: \(game.deckOfCards.count)"
@@ -70,10 +52,11 @@ class ViewController: UIViewController {
             threeMoreCardsButton.isEnabled = false
         }
     }
+    
     private func cardsViewFromModel(){ 
         let cards = game.cardsOnTheTable
         for index in 0..<cardsButton.count{
-            let button = cardsButton[index] //TODO: cardTOButtonIndex and ButtonIndexToCard dict
+            let button = cardsButton[index]
             if index < cards.count {
                 let card = cards[index]
                 button.setAttributedTitle(represent(for: card) , for: UIControl.State.normal)
@@ -81,7 +64,6 @@ class ViewController: UIViewController {
                 button.layer.cornerRadius = 8.0
                 button.layer.borderColor = card.isSelect ? #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1):#colorLiteral(red: 0.9861351848, green: 1, blue: 0, alpha: 0)
                 button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-            
             } else {
                 //button with no card
                 button.setTitle("", for: UIControl.State.normal)
@@ -90,14 +72,12 @@ class ViewController: UIViewController {
                 button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             }
         }
-        
     }
     
     private func represent(for card : Card) -> NSAttributedString{
         let attributes : [NSAttributedString.Key : Any] = [.strokeColor : colors[card.colorIdentity],
                                                            .strokeWidth : -4,
                                                            .foregroundColor : colors[card.colorIdentity].withAlphaComponent(fillers[card.fillerIdentity])]
-        
         var str = ""
         for _ in 0...card.numberOfShapes{
              str += shapes[card.shapeIdentity]
